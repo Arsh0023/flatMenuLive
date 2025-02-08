@@ -16,6 +16,8 @@
                     <tr>
                         <th>#</th>
                         <th>Region</th>
+                        <th>State</th>
+                        <th>Category</th>
                         <th>Dish</th>
                         <th>Recipie Link</th>
                     </tr>
@@ -23,10 +25,24 @@
                 <tbody>
                     {% for d in dishes %}
                     <tr>
-                        <th scope="row">{{ forloop.counter0 }}</th>
-                        <td>{{ d.region }}</td>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>
+                            {% for region in d.region.all %}
+                                {{ region.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for state in d.state.all %}
+                                {{ state.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for category in d.category.all %}
+                                {{ category.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
                         <td>{{ d.name }}</td>
-                        <td>{{ d.link }}</td>
+                        <td><a href="{{ d.link }}">{{ d.link }}</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
